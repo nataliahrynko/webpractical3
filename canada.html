@@ -21,41 +21,41 @@
        margin-left:auto; 
        margin-right:auto;
     }
-body {
-background-color:#D7CEC7;
-font-family: "Century Gothic", "CenturyGothic", "AppleGothic", "sans-serif";
-margin:5%
-}
-*{text-align: center;
-}
+    body {
+    background-color:#D7CEC7;
+    font-family: "Century Gothic", "CenturyGothic", "AppleGothic", "sans-serif";
+    margin:5%
+    }
+    *{text-align: center;
+    }
 
-.header {
-  padding: 30px;
-  text-align: center;
-  background: #791d1d;
-  color:white
-}
+    .header {
+      padding: 30px;
+      text-align: center;
+      background: #791d1d;
+      color:white
+    }
 
-.h1 {
-  font-size: large;
-  color:white;
-  font-size: 30px;
-}
+    .h1 {
+      font-size: large;
+      color:white;
+      font-size: 30px;
+    }
 
-.h2 {
-  font-size: 15px;
-}
-.p1 {
-  font-size: small;
-  color: black;
-  padding-top:10px;
-  padding-bottom:10px;
-}
+    .h2 {
+      font-size: 15px;
+    }
+    .p1 {
+      font-size: small;
+      color: black;
+      padding-top:10px;
+      padding-bottom:10px;
+    }
 
-.table, td, th{
- 
-  text-align: left;
-}
+    .table, td, th{
+    
+      text-align: left;
+    }
 
   </style>
   <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css">
@@ -66,17 +66,14 @@ margin:5%
     "esri/config",
     "esri/Map",
     "esri/views/MapView",
-
-
     "esri/Graphic",
     "esri/layers/GraphicsLayer",
     "esri/layers/MapImageLayer",
     "esri/layers/TileLayer",
     "esri/geometry/Multipoint",
     "esri/layers/FeatureLayer",
-  "esri/geometry/Point",
-  "dojo/domReady!"
-
+    "esri/geometry/Point",
+    "dojo/domReady!"
     ], function(esriConfig,Map, MapView, Graphic, GraphicsLayer, MapImageLayer, Point) {
 
   esriConfig.apiKey = "AAPK85fc2effba54461c9853fd4bf0282a639PCaZoMsAvvnIL4TnE94ISos03sHSYSqc2S3921vVW-kET2pYkQMtZOo-ModrukJ";
@@ -125,7 +122,7 @@ margin:5%
              };
              var simpleMarkerSymbol = {
                type: "simple-marker",
-               color: [255, 0, 0 ],  // Green
+               color: [255, 0, 0 ],  // Red
                outline: {
                  color: [255, 255, 255], // white
                  width: 1
