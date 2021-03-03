@@ -24,32 +24,38 @@
 body {
 background-color:#D7CEC7;
 font-family: "Century Gothic", "CenturyGothic", "AppleGothic", "sans-serif";
-text-align: center;
 margin:5%
+}
+*{text-align: center;
+}
+
+.header {
+  padding: 30px;
+  text-align: center;
+  background: #791d1d;
+  color:white
 }
 
 .h1 {
-  color:#76323F;
   font-size: large;
+  color:white;
+  font-size: 30px;
 }
 
 .h2 {
-  font-size: medium;
-  color: #76323F;
+  font-size: 15px;
 }
 .p1 {
   font-size: small;
   color: black;
   padding-top:10px;
-padding-bottom:10px;
+  padding-bottom:10px;
 }
 
-.header {
-  text-align:left;
-  font-size:large;
-  color:#76323F;
-  vertical-align:center;
-  }
+.table, td, th{
+ 
+  text-align: left;
+}
 
   </style>
   <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css">
@@ -87,7 +93,7 @@ padding-bottom:10px;
   const view = new MapView({
     map: map,
     center: [-96.721058,66.843079], //Longitude, latitude
-    zoom: 2,
+    zoom: 3,
     container: "viewDiv"
  });
 
@@ -151,7 +157,7 @@ padding-bottom:10px;
 </head>
 <body>
   <div id= "text">
-  <div id="container">
+  <div class="header">
     <h1>Interactive Map of Canada</h1>
     </div>
     <div id="container">
@@ -167,7 +173,7 @@ padding-bottom:10px;
   <div id="viewDiv"></div></p>
   <div id= "text">
     <div id="container">
-      <table style="width:100%">
+      <table class="table">
       <caption>Province and Territory Abbreviations</caption>
       <tr>
         <th>Province/Territory</th>
