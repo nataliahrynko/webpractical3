@@ -17,38 +17,40 @@
   <style>
     #viewDiv {
       height: 70%; 
-      width :70%;
+      width :100%;
        margin-left:auto; 
        margin-right:auto;
     }
-      *{
-      font: Century Gothic, CenturyGothic, AppleGothic, sans-serif; 
-      }
-      body {
-        background-color: #9c8b707e;
-        color:black;
-        text-align: center;
+body {
+background-color:#D7CEC7;
+font-family: "Century Gothic", "CenturyGothic", "AppleGothic", "sans-serif";
+text-align: center;
+margin:5%
+}
 
-      }
-      h {
-        font-size: 50px;
-        color:white
-      }
-      h1 {
-        font-size:large;
-        color:   rgb(138, 38, 116);
-        font-weight: bold;
-      }
-      h2 {
-        font-size:large;
-        color: rgb(168, 92, 152);
-        font-weight: bold;
-        margin: 20px
-      }
-      p {
-        font-size:medium;
-        padding-bottom: 20px;
-      }
+.h1 {
+  color:#76323F;
+  font-size: large;
+}
+
+.h2 {
+  font-size: medium;
+  color: #76323F;
+}
+.p1 {
+  font-size: small;
+  color: black;
+  padding-top:10px;
+padding-bottom:10px;
+}
+
+.header {
+  text-align:left;
+  font-size:large;
+  color:#76323F;
+  vertical-align:center;
+  }
+
   </style>
   <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css">
   <script src="https://js.arcgis.com/4.18/"></script>
@@ -61,51 +63,167 @@
 
 
     "esri/Graphic",
-    "esri/layers/GraphicsLayer"
-    "esri/layers/MapImageLayer"
+    "esri/layers/GraphicsLayer",
+    "esri/layers/MapImageLayer",
+    "esri/layers/TileLayer",
+    "esri/geometry/Multipoint",
+    "esri/layers/FeatureLayer",
+  "esri/geometry/Point",
+  "dojo/domReady!"
 
-    ], function(esriConfig,Map, MapView, Graphic, GraphicsLayer, MapImageLayer) {
+    ], function(esriConfig,Map, MapView, Graphic, GraphicsLayer, MapImageLayer, Point) {
 
   esriConfig.apiKey = "AAPK85fc2effba54461c9853fd4bf0282a639PCaZoMsAvvnIL4TnE94ISos03sHSYSqc2S3921vVW-kET2pYkQMtZOo-ModrukJ";
 
+  var basemap = new MapImageLayer({
+      url: "https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer",
+      title: "Basemap"
+});
+
   const map = new Map({
-    basemap: "arcgis-imagery" //Basemap layer service
+    basemap: basemap,
   });
 
   const view = new MapView({
     map: map,
-    center: [-78.5277977 ,  45.6177324], //Longitude, latitude
-    zoom: 20,
+    center: [-96.721058,66.843079], //Longitude, latitude
+    zoom: 2,
     container: "viewDiv"
  });
-    
-    var layer = new MapImageLayer({
-    url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer"
-  });
-  map.add(layer);  // adds the layer to the map
-});
 
- });
+    var layer = new MapImageLayer({
+    url: "https://luna.flemingcollege.ca/arcgis/rest/services/Geom99lab1/NHrynkoCanada/MapServer"
+  });
+  map.add(basemap);  // adds the layer to the map
+  map.layers.push(basemap);
+  map.add(layer);  // adds the layer to the map
+  map.layers.push(layer);
+
+  var locs = ["48.429051, -123.362828, Victoria", "60.719739, -135.063943, Whitehorse", "53.541595, -113.498240, Edmonton", 
+               "62.451179, -114.378461, Yellowknife","49.875868, -97.143992, Winnipeg","50.461633, -104.620648, Regina", 
+               "63.750456, -68.535425, Iqaluit", "43.673971, -79.411025, Toronto", "46.811657, -71.216730, Quebec", 
+               "45.952124, -66.645997, Fredericton", "44.657385, -63.586469, Halifax", "46.237265, -63.130741, Charlottetown", 
+              "47.560434, -52.712151, St.John's"]
+
+  var graphicsLayer = new GraphicsLayer();
+       map.add(graphicsLayer);
+       
+          for (i = 0; i < locs.length; i++) {
+            console.log(locs[i].split(",")[0]);
+            // create a point 
+             var Point ={
+              type: "point",
+              longitude: locs[i].split(",")[1], //check if the point is longitude and change accordingly
+               latitude: locs[i].split(",")[0] //check if the point is latitude and change accordingly
+
+             };
+             var simpleMarkerSymbol = {
+               type: "simple-marker",
+               color: [255, 0, 0 ],  // Green
+               outline: {
+                 color: [255, 255, 255], // white
+                 width: 1
+               }
+             };
+
+             //*** ADD ***//
+            // Create attributes
+            var attributes = {
+              Name:  locs[i].split(",")[2],  // The name of the
+            };
+            // Create popup template
+            var popupTemplate = {
+              title: "{Name}",
+            };
+
+            var pointGraphic = new Graphic({
+              geometry: Point,
+              symbol: simpleMarkerSymbol,
+              //*** ADD ***//
+              attributes: attributes,
+              popupTemplate: popupTemplate
+            });
+
+            graphicsLayer.add(pointGraphic);
+          }
+});
 </script>
 </head>
 <body>
-  <div id="container-fluid">
-    <h1>First Adventure</h1>
-  </div>
+  <div id= "text">
   <div id="container">
-    <h2>Adventures at the Algonquin Wildlife Research Station</h2>
-    <p>I met my partner at the AWRs while working on the Small Mammal Project. At one point in 
-      the summer during a day off, we treked to the infamous (among past researchers) peak Baldy.
-      It was a lot of pulling the canoe over rocks, hacking at alder through small deep creeks and 
-      a constant struggle to not get eaten alive by bugs but by 3pm we had made it to the top of 
-      the 550m peak. Lots of fun and a trip I look back at fondly. The map shows the canoe route in 
-      blue and the hike up the steep 200m cliff to the oak covered peak (oak is not as common as one would think in the
-      park).
+    <h1>Interactive Map of Canada</h1>
+    </div>
+    <div id="container">
+    <h2>Explore Canada's Provinces and Territories</h2>
+    <p>Canada is the second largest country in the world. As Canada is quite big, the country is broken up into more
+      managable areas called provinces and territories. Canada has 10 provinces and 3 territories. Each of these partitions 
+      in addition to being managed by the Canadian Federal Government, have their own reigonal capitals and governments.
+      The following map explores each of these areas and shows the location of their capital cities.
     </p>
     </div>
+  </div>
     <p>
   <div id="viewDiv"></div></p>
-
-
+  <div id= "text">
+    <div id="container">
+      <table style="width:100%">
+      <caption>Province and Territory Abbreviations</caption>
+      <tr>
+        <th>Province/Territory</th>
+        <th>Abreviation</th>
+      </tr>
+      <tr>
+        <td>Alberta</td>
+        <td>Alta.</td>
+      </tr>
+      <tr>
+        <td>British Columbia</td>
+        <td>B.C.</td>
+      </tr>
+      <tr>
+        <td>Manitoba</td>
+        <td>Man.</td>
+      </tr>
+      <tr>
+        <td>New Brunswick</td>
+        <td>N.B.</td>
+      </tr>
+      <tr>
+        <td>Newfoundland and Labrador</td>
+        <td>N.L.</td>
+      </tr>
+      <tr>
+        <td>Nova Scotia</td>
+        <td>N.S.</td>
+      </tr>
+      <tr>
+        <td>Northwest Territories</td>
+        <td>N.W.T.</td>
+      </tr>
+      <tr>
+        <td>Nunavut</td>
+        <td>Nvt.</td>
+      </tr>
+      <tr>
+        <td>Ontario</td>
+        <td>Ont.</td>
+      </tr>
+      <tr>
+        <td>Prince Edward Island</td>
+        <td>P.E.I.</td>
+      </tr>
+      <tr>
+        <td>Quecbec</td>
+        <td>QC</td>
+      </tr>
+      <tr>
+        <td>Yukon</td>
+        <td>Y.T.</td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
 </body>
 </html>
