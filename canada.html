@@ -1,0 +1,111 @@
+
+<html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>First Adventure</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
+  <style>
+    #viewDiv {
+      height: 70%; 
+      width :70%;
+       margin-left:auto; 
+       margin-right:auto;
+    }
+      *{
+      font: Century Gothic, CenturyGothic, AppleGothic, sans-serif; 
+      }
+      body {
+        background-color: #9c8b707e;
+        color:black;
+        text-align: center;
+
+      }
+      h {
+        font-size: 50px;
+        color:white
+      }
+      h1 {
+        font-size:large;
+        color:   rgb(138, 38, 116);
+        font-weight: bold;
+      }
+      h2 {
+        font-size:large;
+        color: rgb(168, 92, 152);
+        font-weight: bold;
+        margin: 20px
+      }
+      p {
+        font-size:medium;
+        padding-bottom: 20px;
+      }
+  </style>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.18/"></script>
+  <script>
+
+  require([
+    "esri/config",
+    "esri/Map",
+    "esri/views/MapView",
+
+
+    "esri/Graphic",
+    "esri/layers/GraphicsLayer"
+    "esri/layers/MapImageLayer"
+
+    ], function(esriConfig,Map, MapView, Graphic, GraphicsLayer, MapImageLayer) {
+
+  esriConfig.apiKey = "AAPK85fc2effba54461c9853fd4bf0282a639PCaZoMsAvvnIL4TnE94ISos03sHSYSqc2S3921vVW-kET2pYkQMtZOo-ModrukJ";
+
+  const map = new Map({
+    basemap: "arcgis-imagery" //Basemap layer service
+  });
+
+  const view = new MapView({
+    map: map,
+    center: [-78.5277977 ,  45.6177324], //Longitude, latitude
+    zoom: 20,
+    container: "viewDiv"
+ });
+    
+    var layer = new MapImageLayer({
+    url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer"
+  });
+  map.add(layer);  // adds the layer to the map
+});
+
+ });
+</script>
+</head>
+<body>
+  <div id="container-fluid">
+    <h1>First Adventure</h1>
+  </div>
+  <div id="container">
+    <h2>Adventures at the Algonquin Wildlife Research Station</h2>
+    <p>I met my partner at the AWRs while working on the Small Mammal Project. At one point in 
+      the summer during a day off, we treked to the infamous (among past researchers) peak Baldy.
+      It was a lot of pulling the canoe over rocks, hacking at alder through small deep creeks and 
+      a constant struggle to not get eaten alive by bugs but by 3pm we had made it to the top of 
+      the 550m peak. Lots of fun and a trip I look back at fondly. The map shows the canoe route in 
+      blue and the hike up the steep 200m cliff to the oak covered peak (oak is not as common as one would think in the
+      park).
+    </p>
+    </div>
+    <p>
+  <div id="viewDiv"></div></p>
+
+
+</body>
+</html>
